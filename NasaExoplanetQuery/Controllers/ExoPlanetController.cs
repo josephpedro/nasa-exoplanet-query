@@ -1,6 +1,5 @@
 namespace NasaExoplanetQuery.Controllers
 {
-    using System.Collections.Generic;
     using System.Linq;
 
     using Microsoft.AspNetCore.Mvc;
@@ -17,9 +16,14 @@ namespace NasaExoplanetQuery.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Planet> GetAll([FromQuery] int start = 0)
+        public IPaginatedResponse<Planet> GetAll([FromQuery] int pageNumber, [FromQuery] int numberOfRecords)
         {
-            return this._planets.Planets.Skip(start).Take(10);
+            var skip = numberOfRecords * (pageNumber - 1);
+            return new PaginatedResponse<Planet>
+            {
+                Data = this._planets.Planets.Skip(skip).Take(numberOfRecords),
+                TotalNumberOfRecords = this._planets.Planets.Count()
+            };
         }
     }
 }
