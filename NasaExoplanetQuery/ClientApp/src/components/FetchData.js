@@ -1,52 +1,40 @@
 import React, { Component } from 'react';
-import Pagination from "react-js-pagination";
-import 'bootstrap/dist/css/bootstrap.css';
+import { TablePagination } from 'react-pagination-table';
+
+const Header = ["Name", "Letter"];
 
 export class FetchData extends Component {
     displayName = FetchData.name
 
     constructor(props) {
         super(props);
-        this.state = { planets: [], loading: true, activePage: 1, itemsCountPerPage: 10 };
+        this.state = { planets: [], loading: true, activePage: 1, totalNumberOfRecords: 10 };
 
-        fetch(`api/ExoPlanet/GetAll?pageNumber=${this.state.activePage}&numberOfRecords=${this.state.itemsCountPerPage}`)
+        fetch(`api/ExoPlanet/GetAll?pageNumber=${this.state.activePage}&numberOfRecords=10`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
                     planets: data.data,
-                    loading: false
+                    loading: false,
+                    totalNumberOfRecords: data.totalNumberOfRecords
                 });
+
+                console.log(data);
             });
     }
 
-    static renderPlanetsTable(planets) {
+    static renderPlanetsTable(planets, totalNumberOfRecords) {
         return (
             <div>
-                <table className='table table-striped'>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Letter</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {planets.map(planet =>
-                            <tr key={planet.pl_hostname + planet.pl_letter}>
-                                <td>{planet.pl_hostname}</td>
-                                <td>{planet.pl_letter}</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-                <div>
-                    <Pagination
-                        activePage={this.state.activePage}
-                        itemsCountPerPage={10}
-                        totalItemsCount={450}
-                        pageRangeDisplayed={5}
-                        onChange={this.handlePageChange}
-                    />
-                </div>
+                <TablePagination
+                    title="Nasa exo planets"
+                    headers={Header}
+                    data={planets}
+                    columns="pl_hostname.pl_letter"
+                    perPageItemCount={10}
+                    totalCount={totalNumberOfRecords}
+                    arrayOption={[["size", 'all', ' ']]}
+                />
             </div>
         );
     }
@@ -54,7 +42,7 @@ export class FetchData extends Component {
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : FetchData.renderPlanetsTable(this.state.planets);
+            : FetchData.renderPlanetsTable(this.state.planets, this.state.totalNumberOfRecords);
 
         return (
             <div>
