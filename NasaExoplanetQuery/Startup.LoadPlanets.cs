@@ -24,7 +24,9 @@ namespace NasaExoplanetQuery
                     _planets.Add(new Planet
                     {
                         pl_hostname = split[0],
-                        pl_letter = split[1]
+                        pl_letter = split[1],
+                        pl_discmethod = split[3],
+                        pl_facility = split[67]
                     });
                 } while (!string.IsNullOrWhiteSpace(line));
             }

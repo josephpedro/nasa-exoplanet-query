@@ -11,5 +11,15 @@
         /// Planet Letter
         /// </summary>
         public string pl_letter { get; set; }
+
+        /// <summary>
+        /// Discovery Method
+        /// </summary>
+        public string pl_discmethod { get; set; }
+
+        /// <summary>
+        /// Discovery Facility
+        /// </summary>
+        public string pl_facility { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+import './Exoplanets.css';
 
 export class FetchData extends Component {
 
@@ -18,33 +19,40 @@ export class FetchData extends Component {
             .then(data => {
                 this.setState({
                     planets: data.data,
-                    loading: false,
-                    pageSize: pageSize,
-                    activePage: index,
-                    totalNumberOfRecords: data.totalNumberOfRecords
+                    loading: false
                 });
             });
     }
 
     render() {
         
-        const columns = [{
-            Header: 'Name',
-            accessor: 'pl_hostname' // String-based value accessors!
-        }, {
-            Header: 'Letter',
-                accessor: 'pl_letter'
-        }];
+        const columns = [
+            {
+                Header: 'Name',
+                accessor: 'pl_hostname',
+                className: "center"
+            },
+            {
+                Header: 'Letter',
+                accessor: 'pl_letter',
+                className: "center"
+            },
+            {
+                Header: 'Discovery Method',
+                accessor: 'pl_discmethod',
+                className: "center"
+            },
+            {
+                Header: 'Discovery Facility',
+                accessor: 'pl_facility',
+                className: "center"
+            }];
 
         return <ReactTable
+            className={'center'}
             data={this.state.planets}
             columns={columns}
-            defaultPageSize={this.state.pageSize}
-            pageSize={this.state.pageSize}
             loading={this.state.loading}
-            page={this.state.activePage}
-            onPageChange={(pageIndex) => { this.fetchPlanets(this.state.pageSize, pageIndex) }}
-            onPageSizeChange={(pageSize, pageIndex) => { this.fetchPlanets(pageSize, pageIndex) }}
         />
     }
 }
