@@ -1,4 +1,4 @@
-﻿namespace NasaExoplanetQuery
+﻿namespace NasaExoplanetQuery.Pagination
 {
     using System.Collections.Generic;
 

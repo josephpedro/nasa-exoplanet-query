@@ -1,4 +1,4 @@
-﻿namespace NasaExoplanetQuery
+﻿namespace NasaExoplanetQuery.Pagination
 {
     public class PaginatedRequest<T> : IPaginatedRequest<T>
     {

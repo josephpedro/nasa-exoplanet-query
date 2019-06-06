@@ -8,6 +8,7 @@ namespace NasaExoplanetQuery.Controllers
     using Microsoft.Extensions.Caching.Memory;
 
     using NasaExoplanetQuery.Model;
+    using NasaExoplanetQuery.Pagination;
 
     [Route("api/[controller]")]
     public class ExoPlanetController : Controller
