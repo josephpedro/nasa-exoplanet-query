@@ -3,10 +3,11 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import './Exoplanets.css';
 import matchSorter from 'match-sorter';
+import { Link } from 'react-router-dom'
 
-export class FetchData extends Component {
+export class Exoplanets extends Component {
 
-    displayName = FetchData.name
+    displayName = Exoplanets.name
 
     constructor(props) {
         super(props);
@@ -22,6 +23,7 @@ export class FetchData extends Component {
                     planets: data.data,
                     loading: false
                 });
+                console.log(data.data);
             });
     }
 

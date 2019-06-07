@@ -1,5 +1,9 @@
 ﻿namespace NasaExoplanetQuery.Model
 {
+    using System.Net;
+
+    using NasaExoplanetQuery.Settings;
+
     public class Planet
     {
         /// <summary>
@@ -21,5 +25,7 @@
         /// Discovery Facility
         /// </summary>
         public string pl_facility { get; set; }
+
+        public string nasa_exoplanet_archive_details_link { get => string.Format("{0}{1}", Settings.OverviewPageLink, WebUtility.UrlEncode(this.pl_hostname)); }
     }
 }
